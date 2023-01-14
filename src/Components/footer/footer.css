@@ -1,0 +1,91 @@
+/*----------------------------------------------Footer--------------------------------------*/
+.footer {
+  padding: 5px;
+  background-color: #efefef;
+}
+.footer-body {
+  margin: 36px 96px 16px 96px;
+}
+.footer-top {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footer-logo {
+  font-size: 28px;
+}
+
+.footer-menu {
+  font-size: 16px;
+}
+
+.menu-sublist {
+  justify-content: space-between;
+  padding: 5px 5px;
+}
+.menu-title {
+  display: block;
+  color: rgb(12, 12, 164);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 150%;
+  margin-bottom: 8px;
+}
+.__red {
+  color: red !important;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+._footer-item {
+  margin-bottom: 5px;
+  line-height: 150%;
+  font-weight: 500;
+}
+.menu-media {
+}
+.menu-img {
+}
+.menu-button {
+  font-size: 18px;
+}
+.menu-button:hover {
+  color: rgb(9, 9, 241);
+  font-weight: 600;
+}
+.footer-media {
+  padding: 5px 5px;
+}
+.media-title {
+  color: rgb(236, 56, 56);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 130%;
+  margin-bottom: 5px;
+}
+.media-list {
+  padding: 5px 5px;
+  display: flex;
+}
+.media-item {
+  margin-right: 5px;
+}
+.media-link {
+}
+.media-img {
+  height: 24px;
+  width: 24px;
+}
+.footer-bottom {
+  border-top: 2px solid #7e7272;
+  padding: 5px;
+}
+.copy {
+  color: #7e7272;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 150%;
+  margin: 5px 0px;
+}

@@ -1,0 +1,31 @@
+/*-----------------PAGINATION------------------------*/
+.pagination {
+  margin: auto auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pagination-block li {
+  display: inline-block;
+}
+.pagination-block a {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  width: 45px;
+  height: 45px;
+  border: 1px solid #cecece;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 24px;
+  color: #cecece;
+  line-height: 170%;
+}
+.pagination-block a:hover {
+  background: #cecece;
+  color: azure;
+}
+.selected a {
+  background: #cecece;
+  color: azure;
+}

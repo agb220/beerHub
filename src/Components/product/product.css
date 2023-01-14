@@ -1,0 +1,101 @@
+/*----------------------------------------PRODUCT------------------------------*/
+
+.product-item {
+  margin: 5px;
+  padding: 15px;
+  width: 310px;
+  height: 670px;
+  /* max-height: 330px; */
+}
+
+.product-img {
+  margin-bottom: 10px;
+}
+.img {
+  max-width: 300px;
+  max-height: 300px;
+}
+.product-block-info {
+  max-width: 300px;
+  height: 55px;
+  display: flex;
+  font-size: 20px;
+  line-height: 150%;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.product-name {
+  margin-right: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.product-brand {
+  margin-right: 5px;
+}
+.product-volume {
+  margin-right: 5px;
+}
+.product-price {
+  font-size: 18px;
+  line-height: 150%;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.product-block__order {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.order-count {
+  margin-left: 10px;
+  border-radius: 25px;
+  background-color: rgb(129, 129, 209);
+  padding: 2px 5px;
+}
+.order-btn {
+  padding: 10px 40px;
+  font-size: 16px;
+  background-color: #cecece;
+  border-radius: 5px;
+}
+.order-btn:hover {
+  background-color: rgb(129, 129, 209);
+  color: #cecece;
+}
+.product-characteristic {
+  font-size: 16px;
+  line-height: 130%;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.product-characteristic__title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.product-characteristic-body {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.product-style {
+  margin-bottom: 5px;
+}
+.product-abv {
+  margin-bottom: 5px;
+}
+.product-ibu {
+  margin-bottom: 5px;
+}
+.product-lactose {
+  color: rgb(204, 62, 62);
+}
+.product-various {
+  display: flex;
+  align-items: center;
+}
+.various {
+  margin-right: 5px;
+}

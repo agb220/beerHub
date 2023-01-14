@@ -1,0 +1,29 @@
+/*------------------------------------MAIN-----------------------------------------------*/
+.main {
+  padding: 5px 0px 15px 0px;
+  margin: 10px;
+  height: 100%;
+}
+.main-content {
+  margin: 18px 96px 16px 96px;
+}
+.main-content__sidebar {
+  height: 100%;
+  font-family: "DM Sans", serif;
+  float: left;
+  border-right: 1px solid #cecece;
+  padding: 0px 15px 15px 0px;
+  min-width: 20%;
+}
+.main-content__page {
+}
+.products-block {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
+  padding: 15px;
+}
+/*------------------------PAGINATION-------------------*/
+.pagination-block {
+  margin: 0 10%;
+}

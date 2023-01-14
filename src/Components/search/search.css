@@ -1,0 +1,40 @@
+/*-------------------SEARCH------------------------*/
+.search {
+}
+
+.search-btn {
+  display: flex;
+  position: relative;
+}
+.search-icon {
+  width: 28px;
+  height: 28px;
+  opacity: 0.5;
+  position: absolute;
+  left: 15px;
+  top: 5px;
+}
+.search-btn input {
+  border: 1px solid #cecece;
+  border-radius: 10px;
+  max-width: 500px;
+  background: #efefef;
+  font-size: 16px;
+  padding: 10px 15px;
+  padding-left: 45px;
+}
+.search-btn input:focus {
+  border: 1px solid #7f7d7d;
+}
+.cross-icon {
+  width: 28px;
+  height: 28px;
+  opacity: 0.5;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+.cross-icon:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

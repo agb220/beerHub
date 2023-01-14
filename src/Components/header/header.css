@@ -1,0 +1,98 @@
+/*------------------------------------HEADER-------------------------*/
+.header {
+  background-color: #efefef;
+}
+.header-body {
+  padding: 0px 0px 5px 0px;
+}
+.header-block {
+}
+/*------------------------------------------HEADER TOP---------------------------------------------*/
+.header-top {
+  background: #212121;
+  color: #efefef;
+  padding: 10px 96px;
+}
+.header-contacts {
+}
+.contacts-list {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+.contact-item {
+  padding-right: 25px;
+}
+.menu-link {
+}
+.contact-link {
+}
+.contact-img {
+  height: 22px;
+  width: 22px;
+}
+.contact-button:hover {
+  color: rgb(99, 99, 240);
+}
+/*------------------------------------------HEADER BOTTOM---------------------------------------------*/
+.header-bottom {
+  margin: 10px 96px 16px 96px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.logo {
+  padding: 5px 5px;
+  font-size: 35px;
+  font-weight: 600;
+}
+.header-menu {
+  padding: 5px 5px;
+  font-size: 18px;
+  font-weight: 600;
+  align-items: center;
+  border-right: 1.5px solid #212121;
+  line-height: 150%;
+}
+.menu-list {
+  padding: 5px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.menu-item {
+}
+.menu-item {
+  margin-right: 64px;
+}
+.menu-link {
+}
+.header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+.info-search {
+  margin-right: 40px;
+}
+
+.info-cart {
+  margin-right: 40px;
+}
+
+.info-login {
+}
+.login {
+}
+.login-img {
+  display: flex;
+  margin-bottom: -7px;
+}
