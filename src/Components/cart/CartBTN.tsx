@@ -2,11 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import { RootState } from "../../redux/store";
+
 import cart from "../../assets/header-img/cart.svg";
 import CartPage from "./CartPage";
 
-function CartBTN() {
-  const { totalPrice, totalCount } = useSelector((state) => state.cartSlice);
+const CartBTN: React.FC = () => {
+  const { totalPrice, totalCount } = useSelector(
+    (state: RootState) => state.cartSlice
+  );
 
   return (
     <>
@@ -21,6 +25,6 @@ function CartBTN() {
       </Link>
     </>
   );
-}
+};
 
 export default CartBTN;

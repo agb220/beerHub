@@ -1,6 +1,9 @@
 import React from "react";
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { RootState } from "../../redux/store";
 
 import CartBTN from "../cart/CartBTN";
 import Search from "../search/Search";
@@ -9,10 +12,23 @@ import icon from "../../assets/header-img/icon.svg";
 import telegram from "../../assets/header-img/telegram.svg";
 import cart from "../../assets/header-img/cart.svg";
 
-import header from "./header.css";
+//import header from "./header.css";
+import "./header.css";
 
 function Header() {
-  const { totalPrice, totalCount } = useSelector((state) => state.cartSlice);
+  const { products, totalCount, totalPrice } = useSelector(
+    (state: RootState) => state.cartSlice
+  );
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(products);
+      localStorage.setItem("cart", json);
+      console.log(json);
+    }
+    isMounted.current = true;
+  }, [products, totalCount, totalPrice]);
 
   return (
     <div className="header">
@@ -73,7 +89,7 @@ function Header() {
               <div className="info-search">
                 <Search />
               </div>
-              <CartBTN totalCount={totalCount} totalPrice={totalPrice} />
+              <CartBTN />
               <div className="info-login">
                 <a className="login" href="#">
                   <img className="login-img" src={icon} alt="login" />

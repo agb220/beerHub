@@ -1,18 +1,18 @@
 import React from "react";
-import { useState, useCallback, useEffect, useContext, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
 import qs from "qs";
 
+import { RootState, useAppDispatch } from "../redux/store";
 import { setCurrentPage } from "../redux/slices/filterSlice";
 import { setCategoryIndex } from "../redux/slices/filterSlice";
 import { setFilters } from "../redux/slices/filterSlice";
 import { fetchProducts } from "../redux/slices/productsSlice";
+import { CartProduct } from "../redux/slices/cartSlice";
 
-// import { SearchContext } from "../App";
 import Product from "../Components/product/Product";
 import Categories from "../Components/filters/Categories";
 import Filters from "../Components/filters/Filters";
@@ -20,35 +20,33 @@ import Range from "../Components/filters/Range";
 import LoaderBlock from "../Components/product/LoaderBlock";
 import Pagination from "../Components/pagination/Pagination";
 
-import main from "./main.css";
+import "./main.css";
 
 const categoryNames = ["Пиво", "На розлив", "В пляшці", "Колекції", "SALE!"];
 
-function Main() {
-  const dispatch = useDispatch();
+const Main: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // const isSearch = useRef(false);
   const isMounted = useRef(false);
-  // const [isLoaded, setIsLoaded] = useState(false);
-  // const { searchValue } = useContext(SearchContext);
   const { categoryIndex, currentPage, searchValue } = useSelector(
-    (state) => state.filterSlice
+    (state: RootState) => state.filterSlice
   );
-  const { addProductToCart } = useSelector((state) => state.cartSlice);
-  const { products, status } = useSelector((state) => state.productsSlice);
+  const addProductToCart = useSelector((state: RootState) => state.cartSlice);
+  const { products, status } = useSelector(
+    (state: RootState) => state.productsSlice
+  );
 
-  //console.log("products", products);
-  const OnSelectCategory = useCallback((index) => {
+  const OnSelectCategory = useCallback((index: number) => {
     dispatch(setCategoryIndex(index));
   }, []);
 
-  const handleAddProductToCart = (obj) => {
+  const handleAddProductToCart = (obj: CartProduct) => {
     dispatch(addProductToCart(obj));
-    console.log("work");
+    //console.log("work");
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getProducts = async () => {
@@ -61,10 +59,6 @@ function Main() {
   };
 
   useEffect(() => {
-    // console.log("isMounted1", isMounted);
-    // console.log("categoryIndex", categoryIndex);
-    // console.log("currentPage", currentPage);
-
     if (isMounted.current && (categoryIndex > 0 || currentPage > 0)) {
       const queryString = qs.stringify({
         categoryIndex,
@@ -73,38 +67,28 @@ function Main() {
 
       navigate(`?${queryString}`);
     }
-    // console.log("queryString", queryString);
     isMounted.current = true;
   }, [currentPage, categoryIndex]);
 
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-
-      //console.log("params", params);
       dispatch(
         setFilters({
           ...params,
+          searchValue: "",
+          categoryIndex: 0,
+          currentPage: 0,
         })
       );
-      // isSearch.current = true;
     }
   }, []);
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
-    // // console.log("!isSearch.current", !isSearch.current);
-    // if (!isSearch.current) {
     getProducts();
-    // }
-    // isSearch.current = false;
   }, [categoryIndex, searchValue, currentPage]);
 
-  //console.log("cartItems", cart);
-
-  // useEffect(() => {
-  //   dispatch(fetchProducts(category));
-  // }, [category]);
+  //console.log(OnSelectCategory);
 
   return (
     <main className="main">
@@ -153,7 +137,7 @@ function Main() {
                     .fill(0)
                     .map((_, index) => <LoaderBlock key={index} />)
                 : products
-                    .filter((obj) => {
+                    .filter((obj: any) => {
                       if (
                         obj.name
                           .toLowerCase()
@@ -163,15 +147,13 @@ function Main() {
                       }
                       return false;
                     })
-                    .map((obj) => (
+                    .map((obj: any) => (
                       <Product
                         onClickAddProduct={handleAddProductToCart}
                         key={obj.id}
                         products={products}
                         // isLoading={true}
-                        addedCount={
-                          products[obj.id] && products[obj.id].items.length
-                        }
+                        addedCount={products[obj.id] && products[obj.id.count]}
                         {...obj}
                       />
                     ))}
@@ -184,6 +166,6 @@ function Main() {
       </div>
     </main>
   );
-}
+};
 
 export default Main;

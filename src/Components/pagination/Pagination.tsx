@@ -1,12 +1,18 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
-
 import ReactPaginate from "react-paginate";
 
-import pagination from "./pagination.css";
+import "./pagination.css";
 
-function Pagination({ onChangePage, currentPage }) {
+type PaginationProps = {
+  onChangePage: (page: number) => void;
+  currentPage: number;
+};
+
+const Pagination: React.FC<PaginationProps> = ({
+  onChangePage,
+  currentPage,
+}) => {
   // const { products } = useSelector(({ productsReducer }) => {
   //   return {
   //     products: productsReducer.items,
@@ -32,10 +38,9 @@ function Pagination({ onChangePage, currentPage }) {
         pageCount={10}
         forcePage={currentPage - 1}
         previousLabel="<"
-        renderOnZeroPageCount={null}
       />
     </div>
   );
-}
+};
 
 export default Pagination;

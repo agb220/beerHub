@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 
 import Header from "./Components/header/Header";
 import Main from "./Main/Main";
@@ -9,23 +8,15 @@ import Footer from "./Components/footer/Footer";
 
 import "./App.css";
 
-// export const SearchContext = React.createContext();
-
 function App() {
-  // const [searchValue, setSearchValue] = useState("");
-
   return (
     <div className="wrapper">
-      {/* <SearchContext.Provider
-      // value={{ searchValue, setSearchValue }}
-      > */}
       <Header />
       <Routes>
-        <Route path="/" element={<Main />} exact />
-        <Route path="/cartpage" element={<CartPage />} exact />
+        <Route path="/" element={<Main />} />
+        <Route path="/cartpage" element={<CartPage />} />
       </Routes>
       <Footer />
-      {/* </SearchContext.Provider> */}
     </div>
   );
 }

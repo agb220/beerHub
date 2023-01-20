@@ -4,11 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
 
+import { RootState } from "../../redux/store";
+import { CartProduct } from "../../redux/slices/cartSlice";
 import { addProductToCart } from "../../redux/slices/cartSlice";
 
-import product from "./product.css";
+import "./product.css";
 
-function Product({
+type ProductProps = {
+  id: string;
+  name: string;
+  img: string;
+  brand: string;
+  price: number;
+  volume: number;
+  style: string;
+  ABV: number;
+  IBU: number;
+  lactose: string;
+};
+
+const Product: React.FC<ProductProps> = ({
   id,
   name,
   img,
@@ -19,26 +34,23 @@ function Product({
   ABV,
   IBU,
   lactose,
-  // addedCount,
-}) {
+}) => {
   const dispatch = useDispatch();
-  // const { addProductToCart } = useSelector((state) => state.cartSlice);
-  const cartItem = useSelector((state) =>
-    state.cartSlice.products.find((obj) => obj.id === id)
+  const cartItem = useSelector((state: RootState) =>
+    state.cartSlice.products.find((obj: any) => obj.id === id)
   );
-  //console.log("addProductToCart", addProductToCart);
-  // console.log("cartItem", cartItem);
 
   const addedCount = cartItem ? cartItem.count : "";
 
   const onAddProduct = () => {
-    const obj = {
+    const obj: CartProduct = {
       id,
       name,
       brand,
       img,
       price,
       volume,
+      count: 0,
     };
     dispatch(addProductToCart(obj));
   };
@@ -73,10 +85,9 @@ function Product({
           <div className="product-lactose">{lactose}</div>
         </div>
       </div>
-      {/* <div className="product-various">{obj.category}</div> */}
     </div>
   );
-}
+};
 
 Product.defaultProps = {
   style: "Різне",

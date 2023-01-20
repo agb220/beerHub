@@ -1,27 +1,31 @@
 import React from "react";
 
-import filters from "./filters.css";
+import useWhyDidYouUpdate from "ahooks/lib/useWhyDidYouUpdate";
 
-const Categories = React.memo(function Categories({
+import "./filters.css";
+
+type CategoriesProps = {
+  activeCategory: number;
+  categories: string[];
+  onClickCategory: (index: number) => void;
+};
+
+const Categories: React.FC<CategoriesProps> = React.memo(function Categories({
   activeCategory,
   categories,
   onClickCategory,
 }) {
+  // useWhyDidYouUpdate("Categories", {
+  //   activeCategory,
+  //   categories,
+  //   onClickCategory,
+  // });
+
   return (
     <nav className="sidebar-filter">
       <ul className="sidebar-filter__list">
-        {/* <li
-          className={
-            activeCategory === null
-              ? "sidebar-filter__title __active"
-              : "sidebar-filter__title"
-          }
-          onClick={() => onClickCategory(null)}
-        >
-          Пиво
-        </li> */}
         {categories &&
-          categories.map((name, index) => (
+          categories.map((name: string, index: number) => (
             <li
               className={
                 activeCategory === index

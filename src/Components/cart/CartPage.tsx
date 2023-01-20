@@ -5,23 +5,23 @@ import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 
 import { clearCart } from "../../redux/slices/cartSlice";
+import { RootState } from "../../redux/store";
 
-import cartPage from "./cartPage.css";
+import "./cartPage.css";
 
 import cart from "../../assets/cart-img/cart.svg";
 import arrow from "../../assets/cart-img/arrow.svg";
 import del from "../../assets/cart-img/delete.svg";
 import emoji from "../../assets/cart-img/emoji.svg";
 
-function CartPage() {
+const CartPage: React.FC = () => {
   const dispatch = useDispatch();
-  const addedProducts = useSelector((state) => state.cartSlice.products);
-  const { totalPrice, totalCount } = useSelector((state) => state.cartSlice);
-  //console.log("addedProducts", addedProducts);
-  // const addedProducts = Object.keys(products).map((key) => {
-  //   return products[key].products[0];
-  // });
-  //console.log("addedProducts", addedProducts);
+  const addedProducts = useSelector(
+    (state: RootState) => state.cartSlice.products
+  );
+  const { totalPrice, totalCount } = useSelector(
+    (state: RootState) => state.cartSlice
+  );
 
   const onClearCart = () => {
     if (window.confirm("Ви справді хочете очиститу кошик?")) {
@@ -46,22 +46,7 @@ function CartPage() {
           <div className="cart-items">
             {addedProducts &&
               addedProducts.map((product) => (
-                <CartItem
-                  key={product.id}
-                  {...product}
-                  // id={id}
-                  // key={product.id}
-                  // name={product.name}
-                  // brand={product.brand}
-                  // volume={product.volume}
-                  // img={product.img}
-                  // price={product.price}
-                  // totalCount={id.products.length}
-                  // totalPrice={id.totalPrice}
-                  // // onRemove={onRemoveItem}
-                  // // onPlus={onPlusItem}
-                  // // onMinus={onMinusItem}
-                />
+                <CartItem key={product.id} {...product} />
               ))}
           </div>
           <div className="cart-content__bottom">
@@ -110,6 +95,6 @@ function CartPage() {
       )}
     </div>
   );
-}
+};
 
 export default CartPage;

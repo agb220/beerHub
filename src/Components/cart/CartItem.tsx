@@ -6,6 +6,7 @@ import { remove } from "lodash";
 
 import {
   addProductToCart,
+  CartProduct,
   minusProduct,
   removeProduct,
 } from "../../redux/slices/cartSlice";
@@ -14,7 +15,25 @@ import minus from "../../assets/cart-img/minus.svg";
 import plus from "../../assets/cart-img/plus.svg";
 import clear from "../../assets/cart-img/clear.svg";
 
-function CartItem({ id, name, brand, volume, price, img, count }) {
+type CartItemProps = {
+  id: string;
+  name: string;
+  brand: string;
+  volume: number;
+  price: number;
+  img: string;
+  count: number;
+};
+
+const CartItem: React.FC<CartItemProps> = ({
+  id,
+  name,
+  brand,
+  volume,
+  price,
+  img,
+  count,
+}) => {
   const dispatch = useDispatch();
 
   const onClickRemove = () => {
@@ -24,10 +43,19 @@ function CartItem({ id, name, brand, volume, price, img, count }) {
   };
 
   const onClickPlus = () => {
-    dispatch(addProductToCart({ id }));
+    const product: CartProduct = {
+      id,
+      name,
+      brand,
+      volume,
+      price,
+      img,
+      count: 0,
+    };
+    dispatch(addProductToCart(product));
   };
   const onClickMinus = () => {
-    dispatch(minusProduct({ id }));
+    dispatch(minusProduct(id));
   };
 
   return (
@@ -42,14 +70,22 @@ function CartItem({ id, name, brand, volume, price, img, count }) {
       </div>
       <div className="cart-item__price">{price}uah</div>
       <div className="cart-item__remove">
-        <img
-          className="cart-img"
-          src={minus}
-          alt="minus"
+        <button
+          className="cart-item__btn _minus"
           onClick={onClickMinus}
-        />
+          disabled={count === 1}
+        >
+          <img className="cart-img" src={minus} alt="minus" />
+        </button>
         <div className="cart-item__count">{count}</div>
-        <img className="cart-img" src={plus} alt="plus" onClick={onClickPlus} />
+        <button className="cart-item__btn _plus">
+          <img
+            className="cart-img"
+            src={plus}
+            alt="plus"
+            onClick={onClickPlus}
+          />
+        </button>
       </div>
       <div className="cart-item__price">{count * price} uah</div>
       <div className="cart-item__clear" onClick={onClickRemove}>
@@ -57,6 +93,6 @@ function CartItem({ id, name, brand, volume, price, img, count }) {
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

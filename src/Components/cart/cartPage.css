@@ -91,6 +91,14 @@
   align-items: center;
   cursor: pointer;
 }
+.cart-item__btn {
+  background: #fff;
+}
+._minus {
+}
+.plus {
+}
+
 .cart-item__remove img {
   margin-right: 5px;
 }
