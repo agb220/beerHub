@@ -7,16 +7,20 @@ import { useNavigate } from "react-router-dom";
 import qs from "qs";
 
 import { RootState, useAppDispatch } from "../redux/store";
-import { setCurrentPage } from "../redux/slices/filterSlice";
-import { setCategoryIndex } from "../redux/slices/filterSlice";
-import { setFilters } from "../redux/slices/filterSlice";
+import {
+  setCurrentPage,
+  setCategoryIndex,
+  setFilters,
+  setTypes,
+} from "../redux/slices/filterSlice";
 import { fetchProducts } from "../redux/slices/productsSlice";
-import { CartProduct } from "../redux/slices/cartSlice";
+import { addProductToCart, CartProduct } from "../redux/slices/cartSlice";
 
 import Product from "../Components/product/Product";
 import Categories from "../Components/filters/Categories";
 import Filters from "../Components/filters/Filters";
 import Range from "../Components/filters/Range";
+import Brands from "../Components/filters/Brands";
 import LoaderBlock from "../Components/product/LoaderBlock";
 import Pagination from "../Components/pagination/Pagination";
 
@@ -28,10 +32,9 @@ const Main: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isMounted = useRef(false);
-  const { categoryIndex, currentPage, searchValue } = useSelector(
+  const { categoryIndex, currentPage, searchValue, type } = useSelector(
     (state: RootState) => state.filterSlice
   );
-  const addProductToCart = useSelector((state: RootState) => state.cartSlice);
   const { products, status } = useSelector(
     (state: RootState) => state.productsSlice
   );
@@ -78,7 +81,8 @@ const Main: React.FC = () => {
           ...params,
           searchValue: "",
           categoryIndex: 0,
-          currentPage: 0,
+          currentPage: 1,
+          type: [],
         })
       );
     }
@@ -89,7 +93,7 @@ const Main: React.FC = () => {
   }, [categoryIndex, searchValue, currentPage]);
 
   //console.log(OnSelectCategory);
-
+  console.log("products.type", type);
   return (
     <main className="main">
       <div className="main-content _container">
@@ -112,7 +116,7 @@ const Main: React.FC = () => {
           <div className="sidebar-filter __filters">
             <div className="sidebar-filter">
               <h3 className="sidebar-filter__title">Бренд</h3>
-              <Filters />
+              <Brands />
             </div>
           </div>
           <label className="sidebar-filter__label __red" htmlFor="other">

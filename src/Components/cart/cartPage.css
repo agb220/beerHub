@@ -175,6 +175,8 @@
 
 /*---------------------------CartBTN-----------------*/
 .cart {
+  max-width: 200px;
+  width: 100%;
   display: flex;
   border: 1px solid #cecece;
   padding: 10px 20px;
@@ -189,6 +191,9 @@
   text-align: center;
   font-size: 24px;
   margin-right: 10px;
+}
+.cart-count span {
+  margin-left: 5px;
 }
 .cart-img {
   display: flex;

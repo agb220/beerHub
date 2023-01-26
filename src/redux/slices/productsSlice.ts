@@ -8,7 +8,7 @@ type FetchProductsArgs = {
   currentPage: number;
 };
 
-type Products = {
+export type Products = {
   id: string;
   name: string;
   img: string;
@@ -16,6 +16,7 @@ type Products = {
   price: number;
   volume: number;
   style: string;
+  type: string;
   ABV: number;
   IBU: number;
   lactose: string;

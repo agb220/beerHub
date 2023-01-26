@@ -1,6 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
-function Filters() {
+const Filters: React.FC = () => {
+  const { products } = useSelector((state: RootState) => state.productsSlice);
+  // const type = products.type;
+  console.log("products", products);
   return (
     <div>
       <div className="sidebar-filter__item">
@@ -10,10 +15,10 @@ function Filters() {
             type="checkbox"
             name="categories"
           />
-          Лагери
         </label>
       </div>
-      <div className="sidebar-filter__item">
+
+      {/* <div className="sidebar-filter__item">
         <label className="sidebar-filter__label" htmlFor="categories">
           <input
             className="sidebar-filter__checkbox"
@@ -92,9 +97,9 @@ function Filters() {
           />
           Безалкогольне
         </label>
-      </div>
+      </div> */}
     </div>
   );
-}
+};
 
 export default Filters;

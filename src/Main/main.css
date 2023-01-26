@@ -11,13 +11,15 @@
   height: 100%;
   font-family: "DM Sans", serif;
   float: left;
-  border-right: 1px solid #cecece;
+
   padding: 0px 15px 15px 0px;
   min-width: 20%;
 }
 .main-content__page {
 }
 .products-block {
+  min-height: 1300px;
+  border-left: 1px solid #cecece;
   display: flex;
   flex-wrap: wrap;
   margin: 5px;

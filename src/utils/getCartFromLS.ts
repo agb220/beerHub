@@ -1,3 +1,4 @@
+import { CartProduct } from "./../redux/slices/cartSlice";
 import { calcTotalPrice } from "./calcTotalPrice";
 import { calcTotalCount } from "./calcTotalCount";
 
@@ -8,7 +9,7 @@ export const getCartFromLS = () => {
   const totalCount = calcTotalCount(json);
 
   return {
-    products: json,
+    products: json as CartProduct[],
     totalPrice: totalPrice,
     totalCount: totalCount,
   };

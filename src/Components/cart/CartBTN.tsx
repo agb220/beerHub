@@ -17,7 +17,10 @@ const CartBTN: React.FC = () => {
       <Link to="CartPage">
         <div className="info-cart">
           <button className="cart">
-            <span className="cart-count">{totalPrice}₴</span>
+            <span className="cart-count">
+              {totalPrice}
+              <span>₴</span>
+            </span>
             <img className="cart-img" src={cart} alt="cart" />
             <span className="cart-count">{totalCount}</span>
           </button>
