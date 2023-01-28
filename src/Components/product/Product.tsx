@@ -70,7 +70,6 @@ const Product: React.FC<ProductProps> = ({
       <div className="product-block__order">
         <button className="order-btn" onClick={onAddProduct}>
           <span>Додати в кошик</span>
-
           <span className={addedCount === "" ? "" : "order-count"}>
             {addedCount && addedCount}
           </span>

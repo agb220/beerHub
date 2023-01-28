@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Products } from "./productsSlice";
 
 export interface FilterSliceState {
   searchValue: string;
   categoryIndex: number;
   currentPage: number;
-  type: Products[];
+  type: string;
 }
 
 const initialState: FilterSliceState = {
   searchValue: "",
   categoryIndex: 0,
   currentPage: 1,
-  type: [],
+  type: "",
 };
 
 const filterSlice = createSlice({
@@ -31,8 +30,9 @@ const filterSlice = createSlice({
     setFilters(state, action: PayloadAction<FilterSliceState>) {
       state.currentPage = Number(action.payload.currentPage);
       state.categoryIndex = Number(action.payload.categoryIndex);
+      state.type = action.payload.type;
     },
-    setTypes(state, action: PayloadAction<Products[]>) {
+    setType(state, action: PayloadAction<string>) {
       state.type = action.payload;
     },
   },
@@ -43,7 +43,7 @@ export const {
   setCurrentPage,
   setFilters,
   setSearchValue,
-  setTypes,
+  setType,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

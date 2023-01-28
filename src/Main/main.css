@@ -29,3 +29,21 @@
 .pagination-block {
   margin: 0 10%;
 }
+/*-----------------------ERROR PAGE-------------------*/
+.__error {
+  display: flex;
+  flex-direction: column;
+}
+.__error h2 {
+  margin: 5% 35% 0% 35%;
+  display: block;
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.__error p {
+  margin: 0% 35%;
+  text-align: center;
+  display: block;
+  font-size: 20px;
+}

@@ -6,9 +6,13 @@ type FetchProductsArgs = {
   search: string;
   category: string;
   currentPage: number;
+  typeSelected: string;
 };
 
 export type Products = {
+  map(
+    arg0: (typeProduct: Products, index: number) => JSX.Element
+  ): import("react").ReactNode;
   id: string;
   name: string;
   img: string;
@@ -41,9 +45,9 @@ const initialState: ProductsSliceState = {
 export const fetchProducts = createAsyncThunk(
   "products/fetchProductsStatus",
   async (params: FetchProductsArgs) => {
-    const { search, category, currentPage } = params;
+    const { search, category, currentPage, typeSelected } = params;
     const res = await axios.get<Products[]>(
-      `http://localhost:3001/products?page=${currentPage}&${search}${category}`
+      `http://localhost:3001/products?page=${currentPage}&${search}${typeSelected}${category}`
     );
     return res.data;
   }

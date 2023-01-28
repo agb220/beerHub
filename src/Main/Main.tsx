@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCallback, useEffect, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ import {
   setCurrentPage,
   setCategoryIndex,
   setFilters,
-  setTypes,
+  setType,
 } from "../redux/slices/filterSlice";
 import { fetchProducts } from "../redux/slices/productsSlice";
 import { addProductToCart, CartProduct } from "../redux/slices/cartSlice";
@@ -43,6 +43,11 @@ const Main: React.FC = () => {
     dispatch(setCategoryIndex(index));
   }, []);
 
+  const OnSelectType = useCallback((type: string) => {
+    dispatch(setType(type));
+    console.log("select", type);
+  }, []);
+
   const handleAddProductToCart = (obj: CartProduct) => {
     dispatch(addProductToCart(obj));
     //console.log("work");
@@ -55,23 +60,28 @@ const Main: React.FC = () => {
   const getProducts = async () => {
     const search = searchValue ? `search=${searchValue}` : "";
     const category = categoryIndex > 0 ? `category=${categoryIndex}` : "";
+    const typeSelected = type.length > 0 ? `type=${type}` : "";
 
-    dispatch(fetchProducts({ search, category, currentPage }));
+    dispatch(fetchProducts({ search, category, currentPage, typeSelected }));
 
     window.scrollTo(0, 0);
   };
 
   useEffect(() => {
-    if (isMounted.current && (categoryIndex > 0 || currentPage > 0)) {
+    if (
+      isMounted.current &&
+      (categoryIndex > 0 || currentPage > 0 || type.length !== 0)
+    ) {
       const queryString = qs.stringify({
         categoryIndex,
         currentPage,
+        type,
       });
 
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [currentPage, categoryIndex]);
+  }, [currentPage, categoryIndex, type]);
 
   useEffect(() => {
     if (window.location.search) {
@@ -82,7 +92,7 @@ const Main: React.FC = () => {
           searchValue: "",
           categoryIndex: 0,
           currentPage: 1,
-          type: [],
+          type: "",
         })
       );
     }
@@ -90,10 +100,10 @@ const Main: React.FC = () => {
 
   useEffect(() => {
     getProducts();
-  }, [categoryIndex, searchValue, currentPage]);
+  }, [categoryIndex, searchValue, currentPage, type]);
 
   //console.log(OnSelectCategory);
-  console.log("products.type", type);
+
   return (
     <main className="main">
       <div className="main-content _container">
@@ -106,7 +116,11 @@ const Main: React.FC = () => {
           <div className="sidebar-filter __filters">
             <div className="sidebar-filter">
               <h3 className="sidebar-filter__title">Категорії</h3>
-              <Filters />
+              <Filters
+                label={""}
+                onSelectedType={OnSelectType}
+                activeType={type}
+              />
             </div>
           </div>
           <div className="sidebar-range__title">Міцність</div>
@@ -130,7 +144,7 @@ const Main: React.FC = () => {
         </aside>
         <div className="main-content__page">
           {status === "error" ? (
-            <div className="products-block__error">
+            <div className="products-block __error">
               <h2> Упс.... щось пішло не так...</h2>
               <p>Спробуйте, будь ласка, пізніше.</p>
             </div>
