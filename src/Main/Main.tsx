@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useCallback, useEffect, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +12,7 @@ import {
   setCategoryIndex,
   setFilters,
   setType,
+  setSelectedType,
 } from "../redux/slices/filterSlice";
 import { fetchProducts } from "../redux/slices/productsSlice";
 import { addProductToCart, CartProduct } from "../redux/slices/cartSlice";
@@ -27,14 +28,24 @@ import Pagination from "../Components/pagination/Pagination";
 import "./main.css";
 
 const categoryNames = ["Пиво", "На розлив", "В пляшці", "Колекції", "SALE!"];
+const typeNames = [
+  "IPA/APA",
+  "Stout/Porter",
+  "Інше",
+  "Безалкогольне",
+  "Барлівайн",
+  "Пшеничне",
+  "Бельгійське міцне",
+  "Sour/Gose",
+  "Лагери",
+];
 
 const Main: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isMounted = useRef(false);
-  const { categoryIndex, currentPage, searchValue, type } = useSelector(
-    (state: RootState) => state.filterSlice
-  );
+  const { categoryIndex, currentPage, searchValue, type, selectedType } =
+    useSelector((state: RootState) => state.filterSlice);
   const { products, status } = useSelector(
     (state: RootState) => state.productsSlice
   );
@@ -43,9 +54,14 @@ const Main: React.FC = () => {
     dispatch(setCategoryIndex(index));
   }, []);
 
-  const OnSelectType = useCallback((type: string) => {
-    dispatch(setType(type));
-    console.log("select", type);
+  const OnSelectType = useCallback((index: number) => {
+    dispatch(setType(index));
+    console.log("select index", index);
+  }, []);
+
+  const handleSelectedType = useCallback((selected: boolean) => {
+    dispatch(setSelectedType(!selected));
+    console.log("work selectedType", !selected);
   }, []);
 
   const handleAddProductToCart = (obj: CartProduct) => {
@@ -60,7 +76,7 @@ const Main: React.FC = () => {
   const getProducts = async () => {
     const search = searchValue ? `search=${searchValue}` : "";
     const category = categoryIndex > 0 ? `category=${categoryIndex}` : "";
-    const typeSelected = type.length > 0 ? `type=${type}` : "";
+    const typeSelected = type !== null ? `type=${type}` : "";
 
     dispatch(fetchProducts({ search, category, currentPage, typeSelected }));
 
@@ -70,7 +86,7 @@ const Main: React.FC = () => {
   useEffect(() => {
     if (
       isMounted.current &&
-      (categoryIndex > 0 || currentPage > 0 || type.length !== 0)
+      (categoryIndex > 0 || currentPage > 0 || type !== null)
     ) {
       const queryString = qs.stringify({
         categoryIndex,
@@ -92,7 +108,8 @@ const Main: React.FC = () => {
           searchValue: "",
           categoryIndex: 0,
           currentPage: 1,
-          type: "",
+          type,
+          selectedType: false,
         })
       );
     }
@@ -116,7 +133,13 @@ const Main: React.FC = () => {
           <div className="sidebar-filter __filters">
             <div className="sidebar-filter">
               <h3 className="sidebar-filter__title">Категорії</h3>
-              <Filters label={""} onSelectedType={OnSelectType} />
+              <Filters
+                label={""}
+                types={typeNames}
+                onSelectedType={OnSelectType}
+                isChecked={selectedType}
+                handleOnChange={handleSelectedType}
+              />
             </div>
           </div>
           <div className="sidebar-range__title">Міцність</div>

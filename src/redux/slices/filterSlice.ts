@@ -4,14 +4,16 @@ export interface FilterSliceState {
   searchValue: string;
   categoryIndex: number;
   currentPage: number;
-  type: string;
+  type: number | null;
+  selectedType: boolean;
 }
 
 const initialState: FilterSliceState = {
   searchValue: "",
   categoryIndex: 0,
   currentPage: 1,
-  type: "",
+  type: null,
+  selectedType: false,
 };
 
 const filterSlice = createSlice({
@@ -32,8 +34,11 @@ const filterSlice = createSlice({
       state.categoryIndex = Number(action.payload.categoryIndex);
       state.type = action.payload.type;
     },
-    setType(state, action: PayloadAction<string>) {
+    setType(state, action: PayloadAction<number>) {
       state.type = action.payload;
+    },
+    setSelectedType(state, action: PayloadAction<boolean>) {
+      state.selectedType = action.payload;
     },
   },
 });
@@ -44,6 +49,7 @@ export const {
   setFilters,
   setSearchValue,
   setType,
+  setSelectedType,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;
