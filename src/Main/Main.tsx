@@ -116,11 +116,7 @@ const Main: React.FC = () => {
           <div className="sidebar-filter __filters">
             <div className="sidebar-filter">
               <h3 className="sidebar-filter__title">Категорії</h3>
-              <Filters
-                label={""}
-                onSelectedType={OnSelectType}
-                activeType={type}
-              />
+              <Filters label={""} onSelectedType={OnSelectType} />
             </div>
           </div>
           <div className="sidebar-range__title">Міцність</div>

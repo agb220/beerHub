@@ -47,7 +47,7 @@ export const fetchProducts = createAsyncThunk(
   async (params: FetchProductsArgs) => {
     const { search, category, currentPage, typeSelected } = params;
     const res = await axios.get<Products[]>(
-      `http://localhost:3001/products?page=${currentPage}&${search}${typeSelected}${category}`
+      `http://localhost:3001/products?page=&${currentPage}&${search}&${typeSelected}&${category}`
     );
     return res.data;
   }
