@@ -6,6 +6,7 @@ export interface FilterSliceState {
   currentPage: number;
   type: number | null;
   selectedType: boolean;
+  brand: string | null;
 }
 
 const initialState: FilterSliceState = {
@@ -14,6 +15,7 @@ const initialState: FilterSliceState = {
   currentPage: 1,
   type: null,
   selectedType: false,
+  brand: null,
 };
 
 const filterSlice = createSlice({
@@ -40,6 +42,9 @@ const filterSlice = createSlice({
     setSelectedType(state, action: PayloadAction<boolean>) {
       state.selectedType = action.payload;
     },
+    setBrand(state, action: PayloadAction<string>) {
+      state.brand = action.payload;
+    },
   },
 });
 
@@ -50,6 +55,7 @@ export const {
   setSearchValue,
   setType,
   setSelectedType,
+  setBrand,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

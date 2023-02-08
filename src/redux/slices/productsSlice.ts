@@ -7,6 +7,7 @@ type FetchProductsArgs = {
   category: string;
   currentPage: number;
   typeSelected: string;
+  brandSelected: string;
 };
 
 export type Products = {
@@ -45,9 +46,10 @@ const initialState: ProductsSliceState = {
 export const fetchProducts = createAsyncThunk(
   "products/fetchProductsStatus",
   async (params: FetchProductsArgs) => {
-    const { search, category, currentPage, typeSelected } = params;
+    const { search, category, currentPage, typeSelected, brandSelected } =
+      params;
     const res = await axios.get<Products[]>(
-      `http://localhost:3001/products?page=&${currentPage}&${search}?&${typeSelected}&${category}`
+      `http://localhost:3001/products?page=&${currentPage}&${search}?&${typeSelected}&${category}&${brandSelected}`
     );
     return res.data;
   }

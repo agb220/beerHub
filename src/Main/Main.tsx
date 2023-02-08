@@ -13,6 +13,7 @@ import {
   setFilters,
   setType,
   setSelectedType,
+  setBrand,
 } from "../redux/slices/filterSlice";
 import { fetchProducts } from "../redux/slices/productsSlice";
 import { addProductToCart, CartProduct } from "../redux/slices/cartSlice";
@@ -44,7 +45,7 @@ const Main: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isMounted = useRef(false);
-  const { categoryIndex, currentPage, searchValue, type, selectedType } =
+  const { categoryIndex, currentPage, searchValue, type, selectedType, brand } =
     useSelector((state: RootState) => state.filterSlice);
   const { products, status } = useSelector(
     (state: RootState) => state.productsSlice
@@ -59,10 +60,15 @@ const Main: React.FC = () => {
     console.log("select index", index);
   }, []);
 
-  const handleSelectedType = useCallback((selected: boolean) => {
-    dispatch(setSelectedType(!selected));
-    console.log("work selectedType", !selected);
+  const onSelectedBrand = useCallback((brand: string) => {
+    dispatch(setBrand(brand));
+    console.log("select brand", brand);
   }, []);
+
+  // const handleSelectedType = useCallback((selected: boolean) => {
+  //   dispatch(setSelectedType(!selected));
+  //   console.log("work selectedType", !selected);
+  // }, []);
 
   const handleAddProductToCart = (obj: CartProduct) => {
     dispatch(addProductToCart(obj));
@@ -76,9 +82,18 @@ const Main: React.FC = () => {
   const getProducts = async () => {
     const search = searchValue ? `search=${searchValue}` : "";
     const category = categoryIndex > 0 ? `category=${categoryIndex}` : "";
-    const typeSelected = type !== null ? `type=${type}` : "";
+    const typeSelected = selectedType === true ? `type=${type}` : "";
+    const brandSelected = brand !== null ? `brand=${brand}` : "";
 
-    dispatch(fetchProducts({ search, category, currentPage, typeSelected }));
+    dispatch(
+      fetchProducts({
+        search,
+        category,
+        currentPage,
+        typeSelected,
+        brandSelected,
+      })
+    );
 
     window.scrollTo(0, 0);
   };
@@ -86,18 +101,19 @@ const Main: React.FC = () => {
   useEffect(() => {
     if (
       isMounted.current &&
-      (categoryIndex > 0 || currentPage > 0 || type !== null)
+      (categoryIndex > 0 || currentPage > 0 || type !== null || brand !== null)
     ) {
       const queryString = qs.stringify({
         categoryIndex,
         currentPage,
         type,
+        brand,
       });
 
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [currentPage, categoryIndex, type]);
+  }, [currentPage, categoryIndex, type, brand]);
 
   useEffect(() => {
     if (window.location.search) {
@@ -109,7 +125,8 @@ const Main: React.FC = () => {
           categoryIndex: 0,
           currentPage: 1,
           type,
-          selectedType: false,
+          selectedType,
+          brand,
         })
       );
     }
@@ -117,7 +134,7 @@ const Main: React.FC = () => {
 
   useEffect(() => {
     getProducts();
-  }, [categoryIndex, searchValue, currentPage, type]);
+  }, [categoryIndex, searchValue, currentPage, selectedType, brand]);
 
   //console.log(OnSelectCategory);
 
@@ -134,11 +151,12 @@ const Main: React.FC = () => {
             <div className="sidebar-filter">
               <h3 className="sidebar-filter__title">Категорії</h3>
               <Filters
-                label={""}
+                // label={""}
                 types={typeNames}
                 onSelectedType={OnSelectType}
-                isChecked={selectedType}
-                handleOnChange={handleSelectedType}
+                // isChecked={false}
+                // isChecked={selectedType}
+                // handleOnChange={handleSelectedType}
               />
             </div>
           </div>
@@ -149,7 +167,10 @@ const Main: React.FC = () => {
           <div className="sidebar-filter __filters">
             <div className="sidebar-filter">
               <h3 className="sidebar-filter__title">Бренд</h3>
-              <Brands />
+              <Brands
+                // label={""}
+                onSelectedBrand={onSelectedBrand}
+              />
             </div>
           </div>
           <label className="sidebar-filter__label __red" htmlFor="other">
